@@ -1,8 +1,8 @@
-﻿;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ;///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI////
 ;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Gui, Font, S12
-Gui, Add, DropDownList, gAction vChoice x2 y9 w230 h120, Вариация текста 1|Вариация текста 2|Вариация текста 3|Вариация текста 4|Вариация текста 5|Вариация текста 6|Вариация текста 7|Кастомная вариация текста
+Gui, Add, DropDownList, gAction vChoice x2 y9 w230 h120, Временно не работает|Вариация текста 1|Вариация текста 2|Вариация текста 3|Вариация текста 4|Вариация текста 5|Вариация текста 6|Вариация текста 7|Кастомная вариация текста
 Gui, Add, Radio, x2 y49 w200 h35 vRadioGroup gCheck ,Palevo(В разработке)
 Gui, Add, Radio, x2 y89 w220 h35 vRadioGroup2 gCheck ,Random(Рекомендуется)
 Gui, Add, Text, x240 y7, Описание скрипта:
@@ -23,7 +23,7 @@ Text4 = {!}&f&lУмеешь строить{?} А может быть хорош 
 Text5 = {!}&f&lСкитаешься по кланам? Время остановиться на нашем{!}) В нашем клане тебе точно понравится. {/}warp fckcorp
 Text6 = {!}&f&lЛюбишь масштабные и красивые постройки{?} Хорошо строишь? Тогда тебе к нам в клан. {/}warp fckcorp
 Text7 = {!}&f&lОткрыт набор в клан FCKCORP. /warp fckcorp, у нас в клане вы найдёте: интересные задания, миссии, ивенты, собрания, тренировки и много чего интересного!
-text = _________________`nText1:`n%text1%`n-----------------`n_________________`nText2:`n%text2%`n-----------------`n_________________`nText3:`n%text3%`n-----------------`n_________________`nText4:`n%text4%`n-----------------`n_________________`nText5:`n%text5%`n-----------------`n_________________`nText6:`n%text7%`n-----------------`n_________________`nText7:`n%text7%`n-----------------`n_________________`nText Custom:`n%text_custom%`n-----------------
+text = _________________`nText1:`n%text1%`n-----------------`n_________________`nText2:`n%text2%`n-----------------`n_________________`nText3:`n%text3%`n-----------------`n_________________`nText4:`n%text4%`n-----------------`n_________________`nText5:`n%text5%`n-----------------`n_________________`nText6:`n%text7%`n-----------------`n_________________`nText7:`n%text7%`n-----------------`n_________________`nText Custom:`n%text_custom%`n-----------------`nЗадержка перед сообщением(в мс, 1 секунда = 1000мс. По стандарту задержка 30000):`n30000`n-----------------
 
 SetWorkingDir, %A_ScriptDir%
 SendMessage, 0x50,, 0x4190419,, A
@@ -40,6 +40,7 @@ FileReadLine, text_settings_5, %filename%, 19
 FileReadLine, text_settings_6, %filename%, 23
 FileReadLine, text_settings_7, %filename%, 27
 FileReadLine, text_settings_custom, %filename%, 31
+FileReadLine, cooldown, %filename%, 34
 }
 If(varcheck <> 0) {
 FileDelete, %filename%
@@ -69,7 +70,7 @@ Rnd = true
 }
 GuiControlGet, RadioGroup2
 if (RadioGroup2 = 1){
-MsgBox, RadioGroup2 = %RadioGroup2%
+MsgBox, Выбран Random.`nЗайдите в майнкрафт и напишите /start
 Rnd = true
 }
 else {
@@ -137,61 +138,71 @@ WinGetActiveTitle, Title
 WinGet, minecraftPid, PID, %Title%
 SendMessage, 0x50,, 0x4190419,, A
 SetKeyDelay, 50, 50
+sleep, 500
+	ControlSend,, {blind}{esc}, ahk_pid %minecraftPID%
 
 loop {
 Random, rndch, 1,8
 sleep, 1000
 	If (rndch = "1") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
-		Sleep 140 ;																													
+		Sleep 140 ;																										
 		ControlSend,, %text_settings_1%{enter}, ahk_pid %minecraftPID%
-		sleep, 20000
+		sleep, %cooldown%
 	}
 	If (rndch = "2") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
 		Sleep 140 ;																													
 		ControlSend,, %text_settings_2%{enter}, ahk_pid %minecraftPID%
-		sleep, 22000
+		sleep, %cooldown%
 	}
 	If (rndch = "3") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
 		Sleep 140 ;																											
 		ControlSend,, %text_settings_3%{enter}, ahk_pid %minecraftPID%
-		sleep, 21000
+		sleep, %cooldown%
 	}
 	If (rndch = "4") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
 		Sleep 140 ;																												
 		ControlSend,, %text_settings_4%{enter}, ahk_pid %minecraftPID%
-		sleep, 23000
+		sleep, %cooldown%
 	}
 	If (rndch = "5") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
 		Sleep 140 ;																														
 		ControlSend,, %text_settings_5%{enter}, ahk_pid %minecraftPID%
-		sleep, 20000
+		sleep, %cooldown%
 	}
 	If (rndch = "6") {
+		SendMessage, 0x50,, 0x4190419,, A
 	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
 		Sleep 140 ;																														
 		ControlSend,, %text_settings_6%{enter}, ahk_pid %minecraftPID%
-		sleep, 20000
+		sleep, %cooldown%
 	}
 	If (rndch = "7") {
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%														
 		Sleep 140 ;																														
 		ControlSend,, %text_settings_7%{enter}, ahk_pid %minecraftPID%
-		sleep, 20000
+		sleep, %cooldown%
 	}
 	If(text_settings_custom > 0) {
 		If (rndch = "8") {
+			SendMessage, 0x50,, 0x4190419,, A
 		ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
 			Sleep 140 ;																												
 			ControlSend,, %text_settings_custom%{enter}, ahk_pid %minecraftPID%
-			sleep, 20000
+			sleep, %cooldown%
+			}
 		}
 	}
-}
 return
 }
 :?:/stop::
