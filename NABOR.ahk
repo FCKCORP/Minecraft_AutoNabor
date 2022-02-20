@@ -14,7 +14,7 @@ Gui, Add, Text,, alt+F10 или /resume
 Gui, Add, Text,, Запустить /start
 Gui, Add, Text,, Меню - insert
 Gui, Add, Link,, <a href="https://discord.gg/gUd2dSaKaq">Наш Discord</a>
-Gui, Show, w397 h325, AutoNabor V1.1
+Gui, Show, w397 h325, AutoNabor V1.3
 
 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
