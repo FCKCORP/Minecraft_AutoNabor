@@ -23,7 +23,7 @@ black = {&}0&l
 
 main_color_cfg = %white%
 cooldown_zag = 30000
-version_zag = 1.4
+version_zag = 1.5
 
 Text1 = {!}%main_color%Надоели скучные кланы{?} Пропадает интерес к игре{?} Тогда тебе к нам в клан{!} {/}warp fckcorp, в нашем клане ты не заскучаешь{.}
 Text2 = {!}%main_color%Идёт набор в топовый клан. /warp fckcorp, в нашем клане нет скуки и безделия. У нас есть задания, ивенты, миссии, испытания и много чего ещё{!}
@@ -32,19 +32,18 @@ Text4 = {!}%main_color%Умеешь строить{?} А может быть х�
 Text5 = {!}%main_color%Скитаешься по кланам? Время остановиться на нашем{!}) В нашем клане тебе точно понравится. {/}warp fckcorp
 Text6 = {!}%main_color%Любишь масштабные и красивые постройки{?} Хорошо строишь? Тогда тебе к нам в клан. {/}warp fckcorp
 Text7 = {!}%main_color%Открыт набор в клан FCKCORP. /warp fckcorp, у нас в клане вы найдёте: интересные задания, миссии, ивенты, собрания, тренировки и много чего интересного!
-text = [Texts]`ntext1=%text1%`ntext2=%text2%`ntext3=%text3%`ntext4=%text4%`ntext5=%text5%`ntext6=%text6%`ntext7=%text7%`ntext_Custom=%text_custom%`n`nЗадержка перед сообщением(указывается в мс, 1 секунда = 1000мс)`n`n[Cooldown]`ncooldown=30000`ncooldown spam=500`n`n`n[Color]`ndark_red=&4&l`nred=&c&l`ngold=&6&l`nyellow=&e&l`ndark_green=&2&l`ngreen=&a&l`naqua=&b&l`ndark_aqua=&3&l`ndark_blue=&1&l`nblue=&9&l`nlight_purple=&d&l`ndark_purple=&5&l`nwhite=&f&l`ngray=&7&l`ndark_gray=&8&l`nblack=&0&l`n`n[Version]`nversion=%version_zag%
+text = [Texts]`ntext1=%text1%`ntext2=%text2%`ntext3=%text3%`ntext4=%text4%`ntext5=%text5%`ntext6=%text6%`ntext7=%text7%`ntext_Custom=%text_custom%`n`nЗадержка перед сообщением(указывается в мс, 1 секунда = 1000мс)`n`n[Cooldown]`ncooldown=30000`ncooldown spam=500`n`n`n[Color]`ndark_red=&4&l`nred=&c&l`ngold=&6&l`nyellow=&e&l`ndark_green=&2&l`ngreen=&a&l`naqua=&b&l`ndark_aqua=&3&l`ndark_blue=&1&l`nblue=&9&l`nlight_purple=&d&l`ndark_purple=&5&l`nwhite=&f&l`ngray=&7&l`ndark_gray=&8&l`nblack=&0&l`n`n[Version]`nversion=%version_zag%`n`n`n[CHECK]`ncheck=3
 
 
 SetWorkingDir, %A_ScriptDir%
 SendMessage, 0x50,, 0x4190419,, A
 filename = %A_ScriptDir%/main/config.ini
-IniRead, varcheck, main/config.ini, Cooldown, cooldown
-
+IniRead, varcheck, main/config.ini,CHECK,check 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ;///Read config///Read config///Read config///Read config///Read config///Read config///Read config///Read config/
 ;////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-if(varcheck > 0) {
+if(varcheck = 3) {
 IniRead, text_settings_1, main/config.ini, Texts, text1
 IniRead, text_settings_2, main/config.ini, Texts, text2
 IniRead, text_settings_3, main/config.ini, Texts, text3
@@ -73,20 +72,23 @@ Iniread, gray_cfg, main/config.ini, Color, gray
 Iniread, dark_gray_cfg, main/config.ini, Color, dark_gray
 Iniread, black_cfg, main/config.ini, Color, black
 }
-If(dark_red_cfg not ="&4") {
+If(varcheck not = 3) {
 FileDelete, %filename%
 FileCreateDir, main
 FileAppend, %text%, %filename%,
 }
+time := cooldown//1000 ; Перевод мс в секунды
 
 ;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ;///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI///GUI////
 ;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Gui, Font, S12
 Gui, Add, DropDownList, gAction vChoice x2 y9 w230 h120, Без цвета|Рандом|Тёмно красный|Красный|Золотой|Жёлтый|Тёмно зелёный|Зелёный|Голубой|Тёмно голубой|Тёмно синий|Синий|Розовый|Фиолетовый|Белый|Светло серый|Тёмно серый|Чёрный
-Gui, Add, Radio, cWhite x2 y49 w200 h35 vRadioGroup gCheck ,Spam Random(В разработке)
-Gui, Add, Radio, cWhite x2 y89 w220 h35 vRadioGroup2 gCheck ,Random(Рекомендуется)
-Gui, Add, button, x2 120 w220 h35, Проверить_конфиг
+Gui, Add, Text, cWhite x10 y49 w200 h35, Режимы работы скрипта
+Gui, Add, Text, cWhite x10 y79 w230 h35, Отправка раз в %time% cекунд
+Gui, Add, Text, cWhite x10 y109 w200 h35, Запуск - /start
+Gui, Add, Text, cWhite x10 y139 w220 h35, Спам - /spam [В разработке]
+Gui, Add, button, x2 220 w220 h35, Проверить_конфиг
 Gui, Add, Text,cWhite x240 y7, Описание скрипта:
 Gui, Add, Text,white, Остановить:
 Gui, Add, Text,cWhite, alt+F9 или /stop
@@ -97,32 +99,26 @@ Gui, Add, Text,cWhite, Меню - insert
 Gui, Add, Link,, <a href="https://discord.gg/gUd2dSaKaq">Наш Discord</a>
 Gui, color, black
 Gui, Show, w397 h325, AutoNabor V%version%
-
-
+if(version not = version_zag)
+{
+	Iniread, version, main/config.ini, Version, version
+	IniWrite, %version_zag%, main/config.ini, Version, version
+	
+	loop 2	{
+		Reload
+		sleep 500
+	}
+}
 
 return
 GuiClose: 
 ExitApp
 ButtonПроверить_конфиг:
-msgbox, [Texts]`n%text_settings_1%`n`n%text_settings_2%`n`n%text_settings_3%`n`n%text_settings_4%`n`n%text_settings_5%`n`n%text_settings_6%`n`n%text_settings_7%`n`n%text_settings_custom%`n`n[Cooldown]`n%cooldown%`n%cooldown_spam%`n`n[Version]`nversion=%version%
+Run, %filename%
 return
 ;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ;///Check///Check///Check///Check///Check///Check///Check///Check///Check///Check///Check///Check///Check//////
 ;/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-Check:
-GuiControlGet, RadioGroup
-if (RadioGroup = 1){
-MsgBox, RadioGroup = %RadioGroup%
-Gui, show
-Rnd = false
-}
-GuiControlGet, RadioGroup2
-if (RadioGroup2 = 1){
-Gui, show
-Rnd = true
-}
 Action:
 ;Использует текст взятый из конфига
 Gui, Submit
