@@ -86,8 +86,10 @@ Gui, Font, S12
 Gui, Add, DropDownList, gAction vChoice x2 y9 w230 h120, Без цвета|Рандом|Тёмно красный|Красный|Золотой|Жёлтый|Тёмно зелёный|Зелёный|Голубой|Тёмно голубой|Тёмно синий|Синий|Розовый|Фиолетовый|Белый|Светло серый|Тёмно серый|Чёрный
 Gui, Add, Text, cWhite x10 y49 w200 h35, Режимы работы скрипта
 Gui, Add, Text, cWhite x10 y79 w230 h35, Отправка раз в %time% cекунд
-Gui, Add, Text, cWhite x10 y109 w200 h35, Запуск - /start
-Gui, Add, Text, cWhite x10 y139 w220 h35, Спам - /spam [В разработке]
+Gui, Add, Text, cWhite x10 y109 w200 h35, Запуск - /start 
+Gui,Add,Text, cRed x120 y109, [Работает]
+Gui, Add, Text, cWhite x10 y139 w220 h35, Спам - /spam
+Gui,Add,Text, cRed x120 y139, [Работает]
 Gui, Add, button, x2 220 w220 h35, Проверить_конфиг
 Gui, Add, Text,cWhite x240 y7, Описание скрипта:
 Gui, Add, Text,white, Остановить:
@@ -258,7 +260,7 @@ return
 WinGetActiveTitle, Title																			
 WinGet, minecraftPid, PID, %Title%
 SendMessage, 0x50,, 0x4190419,, A
-SetKeyDelay, 50, 50
+SetKeyDelay, 5, 5
 sleep, 500
 	ControlSend,, {blind}{esc}, ahk_pid %minecraftPID%
 loop {
@@ -320,6 +322,81 @@ sleep, 1000
 			Sleep 200 ;																												
 			ControlSend,, %main_color%%text_settings_custom%{enter}, ahk_pid %minecraftPID%
 			sleep, %cooldown%
+			}
+		}
+	}
+return
+
+;
+;SPAM
+;
+
+:?:/spam::
+WinGetActiveTitle, Title																			
+WinGet, minecraftPid, PID, %Title%
+SendMessage, 0x50,, 0x4190419,, A
+SetKeyDelay, 5, 5
+sleep, 500
+	ControlSend,, {blind}{esc}, ahk_pid %minecraftPID%
+loop {
+Random, rndch, 1,8
+sleep, 1000
+	If (rndch = "1") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+		Sleep 200 ;																										
+		ControlSend,, %main_color%%text_settings_1%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "2") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+		Sleep 200 ;																													
+		ControlSend,, %main_color%%text_settings_2%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "3") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+		Sleep 200 ;																											
+		ControlSend,, %main_color%%text_settings_3%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "4") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+		Sleep 200 ;																												
+		ControlSend,, %main_color%%text_settings_4%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "5") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+		Sleep 200 ;																														
+		ControlSend,, %main_color%%text_settings_5%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "6") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+		Sleep 200 ;																														
+		ControlSend,, %main_color%%text_settings_6%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If (rndch = "7") {
+		SendMessage, 0x50,, 0x4190419,, A
+	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%														
+		Sleep 200 ;																														
+		ControlSend,, %main_color%%text_settings_7%{enter}, ahk_pid %minecraftPID%
+		sleep, %cooldown_spam%
+	}
+	If(text_settings_custom > 0) {
+		If (rndch = "8") {
+			SendMessage, 0x50,, 0x4190419,, A
+		ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+			Sleep 200 ;																												
+			ControlSend,, %main_color%%text_settings_custom%{enter}, ahk_pid %minecraftPID%
+			sleep, %cooldown_spam%
 			}
 		}
 	}
