@@ -20,10 +20,11 @@ gray = {&}7&l
 dark_gray = {&}8&l
 black = {&}0&l
 
-
+chat_open_zag = l
 main_color_cfg = %white%
 cooldown_zag = 30000
-version_zag = 1.6
+cooldown_spam_zag = 500
+version_zag = 1.7
 
 Text1 = {!}%main_color%Надоели скучные кланы{?} Пропадает интерес к игре{?} Тогда тебе к нам в клан{!} {/}warp fckcorp, в нашем клане ты не заскучаешь{.}
 Text2 = {!}%main_color%Идёт набор в топовый клан. /warp fckcorp, в нашем клане нет скуки и безделия. У нас есть задания, ивенты, миссии, испытания и много чего ещё{!}
@@ -32,50 +33,83 @@ Text4 = {!}%main_color%Умеешь строить{?} А может быть х�
 Text5 = {!}%main_color%Скитаешься по кланам? Время остановиться на нашем{!}) В нашем клане тебе точно понравится. {/}warp fckcorp
 Text6 = {!}%main_color%Любишь масштабные и красивые постройки{?} Хорошо строишь? Тогда тебе к нам в клан. {/}warp fckcorp
 Text7 = {!}%main_color%Открыт набор в клан FCKCORP. /warp fckcorp, у нас в клане вы найдёте: интересные задания, миссии, ивенты, собрания, тренировки и много чего интересного!
-text = [Texts]`ntext1=%text1%`ntext2=%text2%`ntext3=%text3%`ntext4=%text4%`ntext5=%text5%`ntext6=%text6%`ntext7=%text7%`ntext_Custom=%text_custom%`n`nЗадержка перед сообщением(указывается в мс, 1 секунда = 1000мс)`n`n[Cooldown]`ncooldown=30000`ncooldown spam=500`n`n`n[Color]`ndark_red=&4&l`nred=&c&l`ngold=&6&l`nyellow=&e&l`ndark_green=&2&l`ngreen=&a&l`naqua=&b&l`ndark_aqua=&3&l`ndark_blue=&1&l`nblue=&9&l`nlight_purple=&d&l`ndark_purple=&5&l`nwhite=&f&l`ngray=&7&l`ndark_gray=&8&l`nblack=&0&l`n`n[Version]`nversion=%version_zag%`n`n`n[CHECK]`ncheck=3
 
 
 SetWorkingDir, %A_ScriptDir%
 SendMessage, 0x50,, 0x4190419,, A
-filename = %A_ScriptDir%/main/config.ini
-IniRead, varcheck, main/config.ini,CHECK,check 
+filename = %A_AppData%\FCKCORP\AutoNabor\config.ini
+IniRead, varcheck, %filename%,CHECK,check 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ;///Read config///Read config///Read config///Read config///Read config///Read config///Read config///Read config/
 ;////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 if(varcheck = 3) {
-IniRead, text_settings_1, main/config.ini, Texts, text1
-IniRead, text_settings_2, main/config.ini, Texts, text2
-IniRead, text_settings_3, main/config.ini, Texts, text3
-IniRead, text_settings_4, main/config.ini, Texts, text4
-IniRead, text_settings_5, main/config.ini, Texts, text5
-IniRead, text_settings_6, main/config.ini, Texts, text6
-IniRead, text_settings_7, main/config.ini, Texts, text7
-IniRead, text_settings_custom, main/config.ini, Texts, text_custom
-IniRead, cooldown, main/config.ini, Cooldown, cooldown
-IniRead, cooldown_spam, main/config.ini, Cooldown, cooldown spam
-Iniread, version, main/config.ini, Version, version
-Iniread, dark_red_cfg, main/config.ini, Color, dark_red
-Iniread, red_cfg, main/config.ini, Color, red
-Iniread, gold_cfg, main/config.ini, Color, gold
-Iniread, yellow_cfg, main/config.ini, Color, yellow
-Iniread, dark_green_cfg, main/config.ini, Color, dark_green
-Iniread, green_cfg, main/config.ini, Color, green
-Iniread, aqua_cfg, main/config.ini, Color, aqua
-Iniread, dark_aqua_cfg, main/config.ini, Color, dark_aqua
-Iniread, dark_blue_cfg, main/config.ini, Color, dark_blue
-Iniread, blue_cfg, main/config.ini, Color, blue
-Iniread, light_purple_cfg, main/config.ini, Color, light_purple
-Iniread, dark_purple_cfg, main/config.ini, Color, dark_purple
-Iniread, white_cfg, main/config.ini, Color, white
-Iniread, gray_cfg, main/config.ini, Color, gray
-Iniread, dark_gray_cfg, main/config.ini, Color, dark_gray
-Iniread, black_cfg, main/config.ini, Color, black
+IniRead, chat_open, %filename%, ChatOpen, button_open_chat
+IniRead, text_settings_1, %filename%, Texts, text1
+IniRead, text_settings_2, %filename%, Texts, text2
+IniRead, text_settings_3, %filename%, Texts, text3
+IniRead, text_settings_4, %filename%, Texts, text4
+IniRead, text_settings_5, %filename%, Texts, text5
+IniRead, text_settings_6, %filename%, Texts, text6
+IniRead, text_settings_7, %filename%, text7
+IniRead, text_settings_custom, %filename%, Texts, text_custom
+IniRead, cooldown, %filename%, Cooldown, cooldown
+IniRead, cooldown_spam, %filename%, Cooldown, cooldown spam
+Iniread, version, %filename%, Version, version
+Iniread, dark_red_cfg, %filename%, Color, dark_red
+Iniread, red_cfg, %filename%, Color, red
+Iniread, gold_cfg, %filename%, Color, gold
+Iniread, yellow_cfg, %filename%, Color, yellow
+Iniread, dark_green_cfg, %filename%, Color, dark_green
+Iniread, green_cfg, %filename%, Color, green
+Iniread, aqua_cfg, %filename%, Color, aqua
+Iniread, dark_aqua_cfg, %filename%, Color, dark_aqua
+Iniread, dark_blue_cfg, %filename%, Color, dark_blue
+Iniread, blue_cfg, %filename%, Color, blue
+Iniread, light_purple_cfg, %filename%, Color, light_purple
+Iniread, dark_purple_cfg, %filename%, Color, dark_purple
+Iniread, white_cfg, %filename%, Color, white
+Iniread, gray_cfg, %filename%, Color, gray
+Iniread, dark_gray_cfg, %filename%, Color, dark_gray
+Iniread, black_cfg, %filename%, Color, black
 }
+
 If(varcheck not = 3) {
-FileDelete, %filename%
-FileCreateDir, main
-FileAppend, %text%, %filename%,
+FileCreateDir, %A_AppData%\FCKCORP\AutoNabor
+IniWrite, %chat_open_zag%, %filename%, ChatOpen, button_open_chat
+
+
+IniWrite, %text1%, %filename%, Texts, text1
+IniWrite, %text2%, %filename%, Texts, text2
+IniWrite, %text3%, %filename%, Texts, text3
+IniWrite, %text4%, %filename%, Texts, text4
+IniWrite, %text5%, %filename%, Texts, text5
+IniWrite, %text6%, %filename%, Texts, text6
+IniWrite, %text7%, %filename%, Texts, text7
+IniWrite, %text_custom%, %filename%, Texts, text_custom
+
+
+IniWrite, %cooldown_zag%, %filename%,Cooldown, cooldown
+IniWrite, %cooldown_spam_zag%, %filename%, Cooldown, cooldown spam
+IniWrite, %dark_red%, %filename%, Color, dark_red
+IniWrite, %red%, %filename%, Color, red
+IniWrite, %gold%, %filename%, Color, gold
+IniWrite, %yellow%, %filename%, Color, yellow
+IniWrite, %dark_green%, %filename%, Color, dark_green
+IniWrite, %green%, %filename%, Color, green
+IniWrite, %aqua%, %filename%, Color, aqua
+IniWrite, %dark_aqua%, %filename%, Color, dark_aqua
+IniWrite, %dark_blue%, %filename%, Color, dark_blue
+IniWrite, %blue%, %filename%, Color, blue
+IniWrite, %light_purple%, %filename%, Color, light_purple
+IniWrite, %dark_puple%, %filename%, Color, dark_purple
+IniWrite, %white%, %filename%, Color, white
+IniWrite, %gray%, %filename%, Color, gray
+IniWrite, %dark_gray%, %filename%, Color, dark_gray
+IniWrite, %black%, %filename%, Color, black
+
+IniWrite, %version_zag%, %filename%, Version, version
+IniWrite, 3, %filename%,CHECK,check 
 }
 time := cooldown//1000 ; Перевод мс в секунды
 
@@ -103,12 +137,12 @@ Gui, color, black
 Gui, Show, w397 h325, AutoNabor V%version%
 if(version not = version_zag)
 {
-	Iniread, version, main/config.ini, Version, version
-	IniWrite, %version_zag%, main/config.ini, Version, version
+	Iniread, version, %filename%, Version, version
+	IniWrite, %version_zag%, %filename%, Version, version
 	
 	loop 2	{
 		Reload
-		sleep 500
+		sleep 1500
 	}
 }
 
@@ -254,8 +288,8 @@ return
 																																		
 Insert::
 Gui, Show
-return																																	
-																																
+return
+
 :?:/start::
 WinGetActiveTitle, Title																			
 WinGet, minecraftPid, PID, %Title%
@@ -268,49 +302,49 @@ Random, rndch, 1,8
 sleep, 1000
 	If (rndch = "1") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																										
 		ControlSend,, %main_color%%text_settings_1%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "2") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																													
 		ControlSend,, %main_color%%text_settings_2%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "3") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																	
 		Sleep 200 ;																											
 		ControlSend,, %main_color%%text_settings_3%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "4") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																	
 		Sleep 200 ;																												
 		ControlSend,, %main_color%%text_settings_4%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "5") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_5%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "6") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																					
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_6%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
 	}
 	If (rndch = "7") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%														
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%														
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_7%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown%
@@ -318,7 +352,7 @@ sleep, 1000
 	If(text_settings_custom > 0) {
 		If (rndch = "8") {
 			SendMessage, 0x50,, 0x4190419,, A
-		ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+		ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																					
 			Sleep 200 ;																												
 			ControlSend,, %main_color%%text_settings_custom%{enter}, ahk_pid %minecraftPID%
 			sleep, %cooldown%
@@ -343,49 +377,49 @@ Random, rndch, 1,8
 sleep, 1000
 	If (rndch = "1") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																										
 		ControlSend,, %main_color%%text_settings_1%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "2") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																													
 		ControlSend,, %main_color%%text_settings_2%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "3") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																	
 		Sleep 200 ;																											
 		ControlSend,, %main_color%%text_settings_3%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "4") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																	
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																	
 		Sleep 200 ;																												
 		ControlSend,, %main_color%%text_settings_4%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "5") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																				
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																				
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_5%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "6") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																					
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_6%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
 	}
 	If (rndch = "7") {
 		SendMessage, 0x50,, 0x4190419,, A
-	ControlSend,, {blind}{t}, ahk_pid %minecraftPID%														
+	ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%														
 		Sleep 200 ;																														
 		ControlSend,, %main_color%%text_settings_7%{enter}, ahk_pid %minecraftPID%
 		sleep, %cooldown_spam%
@@ -393,7 +427,7 @@ sleep, 1000
 	If(text_settings_custom > 0) {
 		If (rndch = "8") {
 			SendMessage, 0x50,, 0x4190419,, A
-		ControlSend,, {blind}{t}, ahk_pid %minecraftPID%																					
+		ControlSend,, {blind}{%chat_open%}, ahk_pid %minecraftPID%																					
 			Sleep 200 ;																												
 			ControlSend,, %main_color%%text_settings_custom%{enter}, ahk_pid %minecraftPID%
 			sleep, %cooldown_spam%
