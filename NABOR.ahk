@@ -33,7 +33,7 @@ chat_open_zag = t
 main_color_cfg = %white%
 cooldown_zag = 30000
 cooldown_spam_zag = 500
-version_zag = 1.8
+version_zag = 1.9
 
 Text1 = {!}%main_color%Надоели скучные кланы{?} Пропадает интерес к игре{?} Тогда тебе к нам в клан{!} {/}warp fckcorp, в нашем клане ты не заскучаешь{.}
 Text2 = {!}%main_color%Идёт набор в топовый клан. /warp fckcorp, в нашем клане нет скуки и безделия. У нас есть задания, ивенты, миссии, испытания и много чего ещё{!}
